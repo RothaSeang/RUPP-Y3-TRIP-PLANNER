@@ -1,26 +1,63 @@
-'use strict';
+document.addEventListener("DOMContentLoaded", () => {
+  const filter = document.getElementById("filter");
+  const packages = document.querySelectorAll(".package");
 
-/**
- * navbar toggle
- */
+  filter.addEventListener("change", () => {
+    const selected = filter.value;
 
-const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
-const header = document.querySelector("[data-header]");
+    packages.forEach((package) => {
+      const duration = package.getAttribute("data-duration");
 
-navToggleBtn.addEventListener("click", function () {
-  this.classList.toggle("active");
-  header.classList.toggle("active");
+      if (selected === "all" || selected === duration) {
+        package.style.display = "block";
+      } else {
+        package.style.display = "none";
+      }
+    });
+  });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Filter functionality (already written above)
 
+  // Booking form functionality
+  const bookingForm = document.querySelector("form");
 
-/**
- * show go top btn when scroll window to 500px
- */
+  if (bookingForm) {
+    bookingForm.addEventListener("submit", (event) => {
+      event.preventDefault(); // Prevent actual submission
 
-const goTopBtn = document.querySelector("[data-go-top]");
+      // Display a confirmation alert
+      const packageName = document.getElementById("package").value;
+      alert(`Thank you for booking the ${packageName} package! We'll contact you shortly.`);
+      
+      // Optionally, clear the form
+      bookingForm.reset();
+    });
+  }
+});
 
-window.addEventListener("scroll", function () {
-  window.scrollY >= 500 ? goTopBtn.classList.add("active")
-    : goTopBtn.classList.remove("active");
+document.addEventListener("DOMContentLoaded", () => {
+  // Add smooth scrolling to all navigation links
+  const navLinks = document.querySelectorAll("nav a");
+
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const targetId = link.getAttribute("href").substring(1);
+      const targetSection = document.getElementById(targetId);
+
+      if (targetSection) {
+        event.preventDefault(); // Prevent the default link jump
+        targetSection.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const yearSpan = document.createElement("span");
+  yearSpan.textContent = new Date().getFullYear();
+
+  const footer = document.querySelector("footer p");
+  footer.appendChild(yearSpan);
 });
